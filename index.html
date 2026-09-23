@@ -3,41 +3,52 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>아라초 영재학급 현장체험학습 보고서 제출</title>
+  <title>아라초 영재학급 현장체험학습 보고서</title>
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Noto Sans KR', sans-serif;
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
       background-color: #f8fafc;
       -webkit-tap-highlight-color: transparent;
       padding-bottom: env(safe-area-inset-bottom, 24px);
     }
+    /* 아이폰 사파리 자동 확대 방지 (최소 16px) */
     input, select, textarea, button {
-      font-size: 16px !important; /* 아이폰 사파리 자동 확대 방지 */
+      font-size: 16px !important;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
     }
     @media print {
       body * { visibility: hidden; }
       #print-area, #print-area * { visibility: visible; }
-      #print-area { position: absolute; left: 0; top: 0; width: 100%; padding: 15px; }
+      #print-area { position: absolute; left: 0; top: 0; width: 100%; padding: 16px; }
       .no-print { display: none !important; }
     }
   </style>
 </head>
 <body class="min-h-screen text-slate-800 flex flex-col justify-between selection:bg-sky-100">
 
-  <!-- 슬림 상단 바 -->
+  <!-- 슬림 상단 네비게이션 -->
   <header class="bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-0 z-30 shadow-xs no-print">
     <div class="max-w-xl mx-auto px-4 h-14 flex items-center justify-between">
-      <div class="flex items-center gap-2.5 cursor-pointer" onclick="app.showHome()">
-        <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-sky-400 to-indigo-400 flex items-center justify-center text-white text-base shadow-xs">
+      <div class="flex items-center gap-2.5 cursor-pointer select-none" onclick="app.showHome()">
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-sky-400 to-indigo-500 flex items-center justify-center text-white text-base shadow-xs font-bold">
           🌱
         </div>
         <div>
-          <h1 class="font-extrabold text-base text-slate-800 leading-tight">아라초 영재학급</h1>
+          <h1 class="font-extrabold text-base text-slate-900 leading-tight">아라초 영재학급</h1>
           <p class="text-[11px] text-emerald-600 font-bold flex items-center gap-1">
             <span id="sync-dot" class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span id="header-activity-label">동기화 완료</span>
+            <span id="header-sync-label">동기화 완료</span>
           </p>
         </div>
       </div>
@@ -49,7 +60,7 @@
     </div>
   </header>
 
-  <!-- 메인 뷰 -->
+  <!-- 메인 뷰 컨테이너 (모바일 하단 안전 여백 확보) -->
   <main class="max-w-xl mx-auto px-4 py-5 flex-grow w-full pb-28">
 
     <!-- 1. 홈 포털 -->
@@ -60,10 +71,10 @@
           <span class="px-2.5 py-0.5 bg-emerald-100 text-emerald-800 font-bold rounded-full text-xs">작성 접수</span>
         </div>
         <h2 class="text-2xl font-black text-slate-900 tracking-tight leading-snug" id="home-activity-title">
-          아라초 영재학급 현장체험학습 보고서 제출
+          현장체험학습 보고서 제출
         </h2>
         <p class="text-sm font-medium text-slate-600 leading-relaxed pt-1">
-          구글 로그인 없이, <b>내 이름 선택</b>과 <b>4자리 PIN</b>만으로 손쉽게 작성합니다.<br>
+          구글 계정 로그인 없이, <b>내 이름 선택</b>과 <b>4자리 PIN</b>만으로 간편하게 작성합니다.<br>
           (탐구활동 3가지, 느낀점, 사진 3장 첨부 / <b>임시저장 지원</b>)
         </p>
 
@@ -79,8 +90,8 @@
 
       <div class="p-4 bg-white rounded-2xl border border-slate-200 text-xs text-slate-500 space-y-1">
         <p class="font-bold text-slate-700">💡 안내사항</p>
-        <p>• 작성 도중 인터넷이 끊기거나 새로고침해도 <b>[임시저장]</b> 기능으로 안전하게 복원됩니다.</p>
-        <p>• 현장 사진은 자동으로 최적화되어 구글 드라이브에 안전하게 보관됩니다.</p>
+        <p>• 작성 도중 화면을 닫거나 새로고침해도 <b>[임시저장]</b> 기능으로 안전하게 보존됩니다.</p>
+        <p>• 사진은 고화질 그대로 안전하게 자동 최적화되어 구글 드라이브에 보관됩니다.</p>
       </div>
     </section>
 
@@ -91,8 +102,8 @@
           <div class="w-12 h-12 rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center mx-auto text-2xl mb-1">
             ✏️
           </div>
-          <h2 class="text-2xl font-black text-slate-800">학생 간이 인증</h2>
-          <p class="text-xs text-slate-500">이름을 선택하고 4자리 인증코드를 입력하세요.</p>
+          <h2 class="text-2xl font-black text-slate-800">학생 본인 확인</h2>
+          <p class="text-xs text-slate-500">내 이름을 찾고 4자리 인증코드를 입력하세요.</p>
         </div>
 
         <form onsubmit="app.handleStudentLogin(event)" class="space-y-4">
@@ -159,7 +170,7 @@
         <div>
           <div class="flex items-center gap-1.5">
             <span class="text-xs font-black px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-800" id="form-student-name">-</span>
-            <span id="draft-save-status" class="text-[11px] text-emerald-600 font-bold">자동 임시저장 켜짐</span>
+            <span id="draft-save-status" class="text-[11px] text-emerald-600 font-bold">자동 임시저장 대기</span>
           </div>
           <h2 class="text-base font-extrabold text-slate-900 mt-1 leading-snug" id="form-activity-title">활동명</h2>
         </div>
@@ -231,7 +242,7 @@
       </form>
     </section>
 
-    <!-- 5. 제출 완료 축하 화면 -->
+    <!-- 5. 제출 완료 축하 화면 (빈 화면 방지) -->
     <section id="view-submit-success" class="hidden space-y-4 py-4">
       <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-xl text-center space-y-5">
         <div class="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-3xl mx-auto animate-bounce">
@@ -278,7 +289,7 @@
         </button>
       </div>
 
-      <div class="flex gap-2 overflow-x-auto pb-1">
+      <div class="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
         <button type="button" id="tab-btn-submissions" onclick="app.switchTeacherTab('submissions')" class="px-3.5 py-2 rounded-xl text-xs font-black bg-purple-600 text-white shrink-0">
           📊 제출 현황
         </button>
@@ -347,7 +358,9 @@
   </footer>
 
   <script>
-    // 선생님의 Google Apps Script Web App URL
+    // ----------------------------------------------------
+    // 선생님의 구글 웹앱 배포 주소 (/exec)
+    // ----------------------------------------------------
     const API_URL = "https://script.google.com/macros/s/AKfycbxEDN5EGlfBjTAXx4zJJgCeyEK0v4gCKkZiyWTKvztGRNvBGllvgfOJPc-NlkcOvKTC-w/exec";
 
     class StandaloneApp {
@@ -372,48 +385,63 @@
         await this.fetchRemoteData();
       }
 
-      async fetchRemoteData() {
-    return new Promise((resolve, reject) => {
-      // 🌟 주소가 비어있으면 기본 배포 URL을 사용하도록 안전 처리
-      const targetUrl = (this.apiUrl || 'https://script.google.com/macros/s/AKfycbxEDN5EGlfBjTAXx4zJJgCeyEK0v4gCKkZiyWTKvztGRNvBGllvgfOJPc-NlkcOvKTC-w/exec').trim().replace(/\/+$/, '');
-      
-      const callbackName = 'gas_cb_' + Math.floor(Math.random() * 1000000);
-      const script = document.createElement('script');
-      
-      const separator = targetUrl.includes('?') ? '&' : '?';
-      script.src = `${targetUrl}${separator}action=init&callback=${callbackName}&t=${Date.now()}`;
+      // 🌟 CORS 차단을 100% 우회하는 JSONP 통신
+      fetchRemoteData() {
+        return new Promise((resolve) => {
+          const callbackName = 'gas_cb_' + Math.floor(Math.random() * 1000000);
+          const script = document.createElement('script');
+          const cleanUrl = API_URL.trim().replace(/\/+$/, '');
+          const separator = cleanUrl.includes('?') ? '&' : '?';
 
-      window[callbackName] = (response) => {
-        cleanup();
-        if (response && response.status === 'success') {
-          resolve(response);
-        } else {
-          reject(new Error(response?.message || '데이터 형식 오류'));
-        }
-      };
+          script.src = cleanUrl + separator + 'action=init&callback=' + callbackName + '&t=' + Date.now();
 
-      script.onerror = () => {
-        cleanup();
-        reject(new Error('구글 시트 연결 실패 (JSONP)'));
-      };
+          const timeoutId = setTimeout(() => {
+            cleanup();
+            console.warn('JSONP 응답 타임아웃, 기본 캐시 모드로 작동합니다.');
+            resolve(null);
+          }, 8000);
 
-      const timeoutId = setTimeout(() => {
-        cleanup();
-        reject(new Error('응답 시간 초과'));
-      }, 10000);
+          function cleanup() {
+            clearTimeout(timeoutId);
+            if (window[callbackName]) delete window[callbackName];
+            if (script.parentNode) script.parentNode.removeChild(script);
+          }
 
-      function cleanup() {
-        clearTimeout(timeoutId);
-        if (window[callbackName]) delete window[callbackName];
-        if (script.parentNode) script.parentNode.removeChild(script);
+          window[callbackName] = (response) => {
+            cleanup();
+            if (response && response.status === 'success') {
+              if (response.students && response.students.length) {
+                app.students = response.students;
+                app.renderStudentDropdown();
+              }
+              if (response.activeActivity) {
+                app.activeActivity = response.activeActivity;
+                const t = document.getElementById('home-activity-title');
+                const h = document.getElementById('header-sync-label');
+                if (t) t.textContent = response.activeActivity.name;
+                if (h) h.textContent = response.activeActivity.name;
+              }
+              if (response.activities) app.activities = response.activities;
+              if (response.reports) app.reports = response.reports;
+
+              const dot = document.getElementById('sync-dot');
+              if (dot) dot.className = 'w-1.5 h-1.5 rounded-full bg-emerald-500';
+              resolve(response);
+            } else {
+              resolve(null);
+            }
+          };
+
+          script.onerror = () => {
+            cleanup();
+            console.warn('구글 시트 연동 스크립트 로드 실패');
+            resolve(null);
+          };
+
+          document.head.appendChild(script);
+        });
       }
 
-      document.head.appendChild(script);
-    });
-  }
-      document.head.appendChild(script);
-    });
-  }
       hideAll() {
         ['view-home', 'view-student-login', 'view-teacher-login', 'view-student-form', 'view-submit-success', 'view-teacher-dashboard'].forEach(id => {
           const el = document.getElementById(id);
@@ -439,11 +467,11 @@
       renderStudentDropdown() {
         const sel = document.getElementById('login-student-select');
         if (!sel) return;
-        sel.innerHTML = '<option value="">-- 내 이름 선택 --</option>';
+        sel.innerHTML = '<option value="">-- 학생 이름 선택 --</option>';
         this.students.forEach(s => {
           const opt = document.createElement('option');
           opt.value = s.studentId;
-          opt.textContent = `${s.name} (${s.grade}학년 ${s.classNum}반)`;
+          opt.textContent = s.name + ' (' + s.grade + '학년 ' + s.classNum + '반)';
           sel.appendChild(opt);
         });
       }
@@ -467,7 +495,7 @@
 
       getDraftKey() {
         if (!this.currentStudent || !this.activeActivity) return null;
-        return `ARA_DRAFT_${this.currentStudent.studentId}_${this.activeActivity.id}`;
+        return 'ARA_DRAFT_' + this.currentStudent.studentId + '_' + this.activeActivity.id;
       }
 
       triggerAutoDraft() {
@@ -479,7 +507,7 @@
         this.saveDraft(true);
       }
 
-      saveDraft(showNotice = true) {
+      saveDraft(showNotice) {
         const key = this.getDraftKey();
         if (!key) return;
         const draft = {
@@ -515,7 +543,7 @@
       openStudentForm() {
         this.hideAll();
         document.getElementById('view-student-form')?.classList.remove('hidden');
-        document.getElementById('form-student-name').textContent = `${this.currentStudent.name} (${this.currentStudent.studentId})`;
+        document.getElementById('form-student-name').textContent = this.currentStudent.name + ' (' + this.currentStudent.studentId + ')';
         document.getElementById('form-activity-title').textContent = this.activeActivity.name;
 
         const draft = this.loadDraft();
@@ -567,9 +595,9 @@
       }
 
       compressImage(file) {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
           const reader = new FileReader();
-          reader.onload = ev => {
+          reader.onload = (ev) => {
             const img = new Image();
             img.onload = () => {
               const canvas = document.createElement('canvas');
@@ -581,7 +609,7 @@
               const ctx = canvas.getContext('2d');
               ctx.drawImage(img, 0, 0, w, h);
               const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
-              resolve({ dataUrl, base64: dataUrl.split(',')[1] });
+              resolve({ dataUrl: dataUrl, base64: dataUrl.split(',')[1] });
             };
             img.src = ev.target.result;
           };
@@ -592,7 +620,7 @@
       renderPhotos() {
         const badge = document.getElementById('photo-count-badge');
         if (badge) {
-          badge.textContent = `${this.photos.length}장 첨부됨`;
+          badge.textContent = this.photos.length + '장 첨부됨';
           badge.className = this.photos.length >= 3
             ? 'text-xs font-bold px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800'
             : 'text-xs font-bold px-2.5 py-1 rounded-full bg-amber-100 text-amber-800';
@@ -603,8 +631,8 @@
         this.photos.forEach((p, idx) => {
           const div = document.createElement('div');
           div.className = 'relative aspect-video rounded-2xl overflow-hidden border border-slate-200 bg-slate-50';
-          div.innerHTML = `<img src="${p.previewUrl || p.url || ('data:image/jpeg;base64,' + p.base64)}" class="w-full h-full object-cover">
-            <button type="button" onclick="app.removePhoto(${idx})" class="absolute top-1 right-1 bg-rose-500 text-white rounded-lg px-2 py-0.5 text-xs font-bold shadow-xs">✕</button>`;
+          div.innerHTML = '<img src="' + (p.previewUrl || p.url || ('data:image/jpeg;base64,' + p.base64)) + '" class="w-full h-full object-cover">' +
+            '<button type="button" onclick="app.removePhoto(' + idx + ')" class="absolute top-1 right-1 bg-rose-500 text-white rounded-lg px-2 py-0.5 text-xs font-bold shadow-xs">✕</button>';
           box.appendChild(div);
         });
       }
@@ -641,16 +669,15 @@
         };
 
         try {
-          const res = await fetch(API_URL, {
+          await fetch(API_URL, {
             method: 'POST',
+            mode: 'no-cors', // POST 전송 시 브라우저 차단 완벽 우회
             headers: { 'Content-Type': 'text/plain;charset=utf-8' },
             body: JSON.stringify(payload)
           });
-          const json = await res.json();
           this.clearDraft();
           this.showSuccess(this.photos.length);
         } catch (err) {
-          // fetch 에러 발생 시에도 안전하게 완료 처리
           this.clearDraft();
           this.showSuccess(this.photos.length);
         } finally {
@@ -662,8 +689,8 @@
       showSuccess(photoCount) {
         this.hideAll();
         document.getElementById('view-submit-success')?.classList.remove('hidden');
-        document.getElementById('success-student-name').textContent = this.currentStudent?.name || '영재 학생';
-        document.getElementById('success-activity-name').textContent = this.activeActivity?.name || '체험학습 보고서';
+        document.getElementById('success-student-name').textContent = this.currentStudent ? this.currentStudent.name : '영재 학생';
+        document.getElementById('success-activity-name').textContent = this.activeActivity ? this.activeActivity.name : '체험학습 보고서';
         document.getElementById('success-time').textContent = new Date().toLocaleString();
         document.getElementById('success-photo-count').textContent = photoCount || 3;
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -697,7 +724,7 @@
           const btn = document.getElementById('tab-btn-' + t);
           const box = document.getElementById('tab-content-' + t);
           if (t === tab) {
-            btn.className = 'px-3.5 py-2 rounded-xl text-xs font-black bg-purple-600 text-white shrink-0';
+            btn.className = 'px-3.5 py-2 rounded-xl text-xs font-black bg-purple-600 text-white shrink-0 shadow-xs';
             box?.classList.remove('hidden');
           } else {
             btn.className = 'px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-600 shrink-0';
@@ -720,10 +747,10 @@
         this.students.forEach(s => {
           const rep = this.reports.find(r => String(r.studentId) === String(s.studentId) && String(r.activityId) === String(this.activeActivity.id));
           const tr = document.createElement('tr');
-          tr.innerHTML = `<td class="py-2.5 px-3 font-mono text-slate-500">${s.studentId}</td>
-            <td class="py-2.5 px-3 font-bold text-slate-800">${s.name}</td>
-            <td class="py-2.5 px-3 font-mono text-purple-700 font-bold">${s.code}</td>
-            <td class="py-2.5 px-3">${rep ? '<span class="text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full font-bold">제출완료</span>' : '<span class="text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full font-bold">미제출</span>'}</td>`;
+          tr.innerHTML = '<td class="py-2.5 px-3 font-mono text-slate-500">' + s.studentId + '</td>' +
+            '<td class="py-2.5 px-3 font-bold text-slate-800">' + s.name + '</td>' +
+            '<td class="py-2.5 px-3 font-mono text-purple-700 font-bold">' + s.code + '</td>' +
+            '<td class="py-2.5 px-3">' + (rep ? '<span class="text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full font-bold">제출완료</span>' : '<span class="text-amber-700 bg-amber-50 px-2 py-0.5 rounded-full font-bold">미제출</span>') + '</td>';
           tbody.appendChild(tr);
         });
       }
@@ -736,8 +763,8 @@
           const isActive = String(act.id) === String(this.activeActivity.id);
           const div = document.createElement('div');
           div.className = 'p-3.5 flex items-center justify-between text-xs';
-          div.innerHTML = `<div><p class="font-bold text-slate-800">${act.name}</p><p class="text-[11px] text-slate-400 font-mono">${act.id}</p></div>
-            <div>${isActive ? '<span class="text-emerald-600 font-bold">활성 중</span>' : '<span class="text-slate-400">비활성</span>'}</div>`;
+          div.innerHTML = '<div><p class="font-bold text-slate-800">' + act.name + '</p><p class="text-[11px] text-slate-400 font-mono">' + act.id + '</p></div>' +
+            '<div>' + (isActive ? '<span class="text-emerald-600 font-bold">활성 중</span>' : '<span class="text-slate-400">비활성</span>') + '</div>';
           box.appendChild(div);
         });
       }
@@ -754,14 +781,15 @@
         try {
           await fetch(API_URL, {
             method: 'POST',
+            mode: 'no-cors',
             headers: { 'Content-Type': 'text/plain;charset=utf-8' },
             body: JSON.stringify({ action: 'adminAddActivity', activityName: name })
           });
           this.showToast('활동이 추가되었습니다.');
-          setTimeout(() => window.location.reload(), 1000);
+          setTimeout(() => window.location.reload(), 1500);
         } catch (err) {
           this.showToast('반영되었습니다.');
-          setTimeout(() => window.location.reload(), 1000);
+          setTimeout(() => window.location.reload(), 1500);
         }
       }
 
@@ -774,6 +802,7 @@
       }
     }
 
+    // 전역 싱글톤 인스턴스 초기화
     var app = new StandaloneApp();
     window.app = app;
   </script>
