@@ -387,25 +387,45 @@
 
       // 🌟 CORS 차단을 100% 우회하는 JSONP 통신
       fetchRemoteData() {
-        return new Promise((resolve) => {
-          const callbackName = 'gas_cb_' + Math.floor(Math.random() * 1000000);
-          const script = document.createElement('script');
-          const cleanUrl = API_URL.trim().replace(/\/+$/, '');
-          const separator = cleanUrl.includes('?') ? '&' : '?';
+        return new Promise((resolve, reject) => {
+      var defaultUrl = 'https://script.google.com/macros/s/AKfycbxEDN5EGlfBjTAXx4zJJgCeyEK0v4gCKkZiyWTKvztGRNvBGllvgfOJPc-NlkcOvKTC-w/exec';
+      var targetUrl = (this.apiUrl || defaultUrl).trim().replace(/\/+$/, '');
+      
+      var callbackName = 'gas_cb_' + Math.floor(Math.random() * 1000000);
+      var script = document.createElement('script');
+      
+      var separator = targetUrl.indexOf('?') !== -1 ? '&' : '?';
+      script.src = targetUrl + separator + 'action=init&callback=' + callbackName + '&t=' + Date.now();
 
-          script.src = cleanUrl + separator + 'action=init&callback=' + callbackName + '&t=' + Date.now();
+      window[callbackName] = function(response) {
+        cleanup();
+        if (response && response.status === 'success') {
+          resolve(response);
+        } else {
+          var msg = (response && response.message) ? response.message : '데이터 형식 오류';
+          reject(new Error(msg));
+        }
+      };
 
-          const timeoutId = setTimeout(() => {
-            cleanup();
-            console.warn('JSONP 응답 타임아웃, 기본 캐시 모드로 작동합니다.');
-            resolve(null);
-          }, 8000);
+      script.onerror = function() {
+        cleanup();
+        reject(new Error('구글 시트 연결 실패 (JSONP)'));
+      };
 
-          function cleanup() {
-            clearTimeout(timeoutId);
-            if (window[callbackName]) delete window[callbackName];
-            if (script.parentNode) script.parentNode.removeChild(script);
-          }
+      var timeoutId = setTimeout(function() {
+        cleanup();
+        reject(new Error('응답 시간 초과'));
+      }, 10000);
+
+      function cleanup() {
+        clearTimeout(timeoutId);
+        try { delete window[callbackName]; } catch(e) { window[callbackName] = undefined; }
+        if (script.parentNode) script.parentNode.removeChild(script);
+      }
+
+      document.head.appendChild(script);
+    });
+  }
 
           window[callbackName] = (response) => {
             cleanup();
