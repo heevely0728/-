@@ -373,31 +373,44 @@
       }
 
       async fetchRemoteData() {
-        try {
-          const res = await fetch(`${API_URL}?action=init&_t=${Date.now()}`);
-          if (!res.ok) throw new Error('HTTP ' + res.status);
-          const data = await res.json();
-          if (data && data.students && data.students.length) {
-            this.students = data.students;
-            this.renderStudentDropdown();
-          }
-          if (data && data.activeActivity) {
-            this.activeActivity = data.activeActivity;
-            const t = document.getElementById('home-activity-title');
-            const h = document.getElementById('header-activity-label');
-            if (t) t.textContent = this.activeActivity.name;
-            if (h) h.textContent = this.activeActivity.name;
-          }
-          if (data && data.activities) this.activities = data.activities;
-          if (data && data.reports) this.reports = data.reports;
+    return new Promise((resolve, reject) => {
+      const callbackName = 'gas_cb_' + Math.floor(Math.random() * 1000000);
+      const script = document.createElement('script');
+      
+      const cleanUrl = this.apiUrl.trim().replace(/\/+$/, '');
+      const separator = cleanUrl.includes('?') ? '&' : '?';
+      script.src = `${cleanUrl}${separator}action=init&callback=${callbackName}&t=${Date.now()}`;
 
-          const dot = document.getElementById('sync-dot');
-          if (dot) dot.className = 'w-1.5 h-1.5 rounded-full bg-emerald-500';
-        } catch (e) {
-          console.warn('Sync fallback to local preset:', e);
+      // 성공 시 데이터 수신
+      window[callbackName] = (response) => {
+        cleanup();
+        if (response && response.status === 'success') {
+          resolve(response);
+        } else {
+          reject(new Error(response?.message || '데이터 형식 오류'));
         }
+      };
+
+      // 네트워크 오류 또는 타임아웃 처리
+      script.onerror = () => {
+        cleanup();
+        reject(new Error('네트워크 연결 실패 (JSONP 오류)'));
+      };
+
+      const timeoutId = setTimeout(() => {
+        cleanup();
+        reject(new Error('응답 시간 초과'));
+      }, 10000);
+
+      function cleanup() {
+        clearTimeout(timeoutId);
+        if (window[callbackName]) delete window[callbackName];
+        if (script.parentNode) script.parentNode.removeChild(script);
       }
 
+      document.head.appendChild(script);
+    });
+  }
       hideAll() {
         ['view-home', 'view-student-login', 'view-teacher-login', 'view-student-form', 'view-submit-success', 'view-teacher-dashboard'].forEach(id => {
           const el = document.getElementById(id);
